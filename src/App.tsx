@@ -3,7 +3,7 @@ import { Channels, Main, Navbar, Search, VideoDetail } from "./components";
 
 export default function App() {
   return (
-    <div>
+    <>
       <Navbar />
       <Routes>
         <Route path="/" element={<Main />} />
@@ -11,6 +11,6 @@ export default function App() {
         <Route path="video/:id" element={<VideoDetail />} />
         <Route path="search/:id" element={<Search />} />
       </Routes>
-    </div>
+    </>
   );
 }

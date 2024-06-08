@@ -4,6 +4,7 @@ import Category from "../category/category";
 import Videos from "../videos/videos";
 import { ApiService } from "../../services/api-data";
 import { Video } from "../../types/videos";
+import Sidebar from "../sidebar/sidebar";
 
 const Main: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
@@ -35,10 +36,13 @@ const Main: React.FC = () => {
 
   return (
     <Stack>
-      <Category
-        selectedCategoryHandler={selectedCategoryHandler}
-        selectedCategory={selectedCategory}
-      />
+      <div className="flex items-center">
+        <Sidebar />
+        <Category
+          selectedCategoryHandler={selectedCategoryHandler}
+          selectedCategory={selectedCategory}
+        />
+      </div>
       <div>
         <Videos videos={videos} loading={loading} error={error} />
       </div>

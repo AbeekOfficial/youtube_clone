@@ -1,8 +1,8 @@
 import React from "react";
 import CategoryType from "../../types/categoryType";
-import { categories } from "../../constants/category";
-import { Stack } from "@mui/material";
-import Container from "../../ui/container";
+import { categories } from "../../data/category";
+import { Button } from "../button/Button";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface CategoryProps {
   selectedCategoryHandler: (category: string) => void;
@@ -13,30 +13,40 @@ const Category: React.FC<CategoryProps> = ({
   selectedCategoryHandler,
   selectedCategory,
 }) => {
+  const [leftIcon, setLeftIcon] = React.useState(false);
+  const [rightIcon, setRightIcon] = React.useState(false);
+
   return (
-    <Container>
-      <Stack
-        className="no-scrollbar"
-        direction={"row"}
-        spacing={2}
-        m={2}
-        sx={{ overflowX: "scroll" }}
-      >
+    <div className="overflow-x-hidden relative px-8 pb-4">
+      <div className="flex whitespace-nowrap gap-3 transition-transform w-[max-content]">
         {categories.map((category: CategoryType) => (
-          <button
-            key={category.id}
-            className={`text-white bg-[#272727] px-4 py-2 rounded-xl hover:bg-[#333333] ${
-              selectedCategory === category.name
-                ? "bg-[#f1f1f1] text-[#000]"
-                : ""
-            }`}
+          <Button
             onClick={() => selectedCategoryHandler(category.name)}
+            key={category.id}
+            variant={selectedCategory === category.name ? "dark" : "default"}
+            className="py-2 px-4 rounded-lg whitespace-nowrap text-[16px] font-medium"
           >
             {category.name}
-          </button>
+          </Button>
         ))}
-      </Stack>
-    </Container>
+      </div>
+
+      {leftIcon && (
+        <div className="absolute left-0 top-1/2 -translate-y-1/2 bg-gradient-to-r from-white from-50% to-transparent w-24 h-full">
+          <Button variant="ghost" size={"icon"}>
+            <ChevronLeft />
+          </Button>
+        </div>
+      )}
+
+      {rightIcon && (
+        <div className="absolute right-0 top-1/2 -translate-y-1/2 bg-gradient-to-r from-white from-50% to-transparent w-24 h-full flex justify-end">
+          <Button variant="ghost" size={"icon"}>
+            <ChevronRight />
+          </Button>
+        </div>
+      )}
+    </div>
   );
 };
 

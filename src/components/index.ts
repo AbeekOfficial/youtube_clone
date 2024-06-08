@@ -6,3 +6,5 @@ export { default as SearchBar } from "./search-bar/searchBar";
 export { default as Category } from "./category/category";
 export { default as Videos } from "./videos/videos";
 export { default as Search } from "./search/search";
+export { default as Sidebar } from "./sidebar/sidebar";
+export { default as VideosCard } from "./videos-card/VideosCard";
