@@ -27,7 +27,8 @@
     "react-number-format": "^5.4.0",
     "react-numeral": "^1.1.1",
     "react-player": "^2.16.0",
-    "react-router-dom": "^6.23.1"
+    "react-router-dom": "^6.23.1",
+    "tailwind-merge": "^2.3.0"
   },
   "devDependencies": {
     "@types/node": "^20.13.0",

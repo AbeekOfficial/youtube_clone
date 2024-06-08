@@ -1,44 +1,80 @@
-import { Menu } from "lucide-react";
-import Logo from "../../assets/logo.jpg";
-import SearchBar from "../search-bar/searchBar";
-import { Notifications, VideoCall } from "@mui/icons-material";
-import "../../index.css";
-import NavbarContainer from "../../ui/navbar-container";
+import { ArrowLeft, Bell, Menu, Mic, Search, Upload, User } from "lucide-react";
+import logo from "../../assets/logo.jpg";
+import { Button } from "../button/Button";
+import { useState } from "react";
 
-export default function Navbar() {
+const Navbar = () => {
+  const [showInput, setShowInput] = useState<boolean>(false);
+
   return (
-    <NavbarContainer>
-      <header
-        className={`sticky z-20 top-0 right-0 left-0  py-8 px-4 mx-auto ${
-          !top &&
-          `bg-[#0F1924] shadow-lg duration-500 ease-in-out shadow-green-700`
+    <nav className="flex items-center gap-10 justify-between lg:gap-20 pt-2 mb-6 mx-4">
+      <div
+        className={`flex items-center gap-4 flex-shrink-0 ${
+          showInput ? "hidden" : "flex"
         }`}
       >
-        <nav className="sticky top-0 bg-white shadow-custom z-20 flex gap-10 lg:gap-20 justify-between items-center px-4 pt-2">
-          <div className="flex gap-4 items-center">
-            <button>
-              <Menu />
-            </button>
-            <a href="/">
-              <img src={Logo} alt="Logo" width={100} height={40} />
-            </a>
-          </div>
-          <div className="flex items-center gap-4">
-            <SearchBar />
-          </div>
-          <div className="flex items-center gap-6">
-            <div className="group relative flex items-center justify-center">
-              <div className="w-10 h-10 rounded-full bg-[#222222] opacity-0 group-hover:opacity-100 transition-opacity absolute"></div>
-              <VideoCall className="text-black relative text-3xl" />
-            </div>
-            <div className="group relative flex items-center justify-center">
-              <div className="w-10 h-10 rounded-full bg-[#222222] opacity-0 group-hover:opacity-100 transition-opacity absolute"></div>
-              <Notifications className="text-black relative text-3xl" />
-            </div>
-            <div className="w-10 h-10 rounded-full bg-[#222222]"></div>
-          </div>
-        </nav>
-      </header>
-    </NavbarContainer>
+        <Button variant={"ghost"} size={"icon"}>
+          <Menu />
+        </Button>
+        <a href="/">
+          <img src={logo} alt="logo" width={100} height={100} />
+        </a>
+      </div>
+      <form
+        className={`flex-shrink-0 gap-4 justify-center flex-grow ${
+          showInput ? "flex" : "hidden md:flex"
+        }`}
+      >
+        {showInput && (
+          <Button
+            onClick={() => setShowInput(false)}
+            size={"icon"}
+            variant={"ghost"}
+            className="flex-shrink-0"
+          >
+            <ArrowLeft />
+          </Button>
+        )}
+        <div className="max-w-[600px] flex flex-grow items-center">
+          <input
+            type="search"
+            placeholder="Search"
+            className="border border-secondary-border rounded-l-full shadow-inner shadow-secondary w-full py-1 pt-1 px-4 text-lg focus:border-blue-500 outline-none"
+          />
+          <Button className="py-2 px-4 rounded-r-full flex-shrink-0 border-l-0">
+            <Search />
+          </Button>
+        </div>
+        <Button size={"icon"} type="button" className="flex-shrink-0">
+          <Mic />
+        </Button>
+      </form>
+      <div
+        className={`flex-shrink-0 md:gap-2 ${showInput ? "hidden" : "flex"}`}
+      >
+        <Button
+          onClick={() => setShowInput(true)}
+          size={"icon"}
+          variant={"ghost"}
+          className="md:hidden"
+        >
+          <Search />
+        </Button>
+        <Button size={"icon"} variant={"ghost"} className="md:hidden">
+          <Mic />
+        </Button>
+        <Button variant={"ghost"} size={"icon"}>
+          <Upload />
+        </Button>
+        <Button variant={"ghost"} size={"icon"}>
+          <Bell />
+        </Button>
+        <Button variant={"ghost"} size={"icon"}>
+          <User />
+        </Button>
+      </div>
+    </nav>
   );
-}
+};
+
+export default Navbar;
