@@ -4,7 +4,6 @@ import Category from "../category/category";
 import Videos from "../videos/videos";
 import { ApiService } from "../../services/api-data";
 import { Video } from "../../types/videos";
-import Sidebar from "../sidebar/sidebar";
 
 const Main: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");

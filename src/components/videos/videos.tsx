@@ -1,14 +1,10 @@
 import React from "react";
 import { VideosDataType } from "../../types/videos";
-import Skeleton from "../../ui/skeleton";
 import VideosCard from "../videos-card/VideosCard";
+import Skeleton from "../../ui/skeleton";
 
-const Videos: React.FC<VideosDataType> = ({ videos, loading, error }) => {
+const Videos: React.FC<VideosDataType> = ({ videos, loading }) => {
   console.log("Videos malumotlari", videos);
-
-  if (error) {
-    return <div>{error}</div>;
-  }
 
   return (
     <div className="grid gap-5 grid-cols-[repeat(auto-fill,minmax(300px,1fr))] px-20 ">

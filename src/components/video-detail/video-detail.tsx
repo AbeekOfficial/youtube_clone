@@ -6,7 +6,6 @@ import { Avatar, Box, Chip } from "@mui/material";
 import ReactPlayer from "react-player";
 import {
   CheckCircleRounded,
-  CommentOutlined,
   Reply,
   Tag,
   ThumbDown,
@@ -132,7 +131,7 @@ const VideoDetail: React.FC = () => {
                   </Button>
                 </div>
               </div>
-              <div className="flex gap-5 md:pt-3 sm:pt-3">
+              <div className="flex gap-5 md:pt-3 sm:pt-3 md:flex-wrap">
                 <div className="flex items-center">
                   <Button
                     variant={"default"}
@@ -165,7 +164,7 @@ const VideoDetail: React.FC = () => {
                 </Button>
               </div>
             </div>
-            <div className="rounded-2xl p-4 ml-20 bg-gray-100 text-black">
+            <div className="rounded-2xl p-4 bg-gray-100 text-black ml-20">
               <div className="flex items-center mb-5">
                 <NumberDisplay value={viewCount} className="mr-1" />
                 views
