@@ -1,9 +1,9 @@
 import { formatNumber } from "../../utils/number-formatter";
 
 type NumberDisplayProps = {
-  value: number;
+  value: any;
   className?: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 };
 
 const NumberDisplay: React.FC<NumberDisplayProps> = ({

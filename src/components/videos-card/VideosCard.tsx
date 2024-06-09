@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import { VideosDataType } from "../../types/videos";
-import { Avatar, Box } from "@mui/material";
+import { Avatar } from "@mui/material";
 import { CheckCircleRounded } from "@mui/icons-material";
 import moment from "moment";
 
-export default function VideosCard({ video }: VideosDataType) {
+const VideosCard: React.FC<VideosDataType> = ({ video }: any) => {
   return (
     <div key={video.id.videoId}>
       <Link
@@ -40,4 +40,5 @@ export default function VideosCard({ video }: VideosDataType) {
       </div>
     </div>
   );
-}
+};
+export default VideosCard;

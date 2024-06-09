@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Container from "../../ui/container";
 import Videos from "../videos/videos";
@@ -33,7 +33,7 @@ const Search = () => {
         }
         const data = await response.json();
         setVideos(data.items || []);
-      } catch (error) {
+      } catch (error: any) {
         setError(error.message || "Malumot topilmadi");
       } finally {
         setLoading(false);
@@ -56,7 +56,7 @@ const Search = () => {
             Internetga bilan muammo yoki malumot topilmadi...
           </div>
         )}
-        {!loading && !error && <Videos videos={videos} />}
+        {!loading && !error && <Videos videos={videos} loading={loading} />}
       </div>
     </Container>
   );
