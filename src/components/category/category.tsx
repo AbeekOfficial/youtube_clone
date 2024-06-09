@@ -33,7 +33,11 @@ const Category: React.FC<CategoryProps> = ({
 
       {leftIcon && (
         <div className="absolute left-0 top-1/2 -translate-y-1/2 bg-gradient-to-r from-white from-50% to-transparent w-24 h-full">
-          <Button variant="ghost" size={"icon"}>
+          <Button
+            onClick={() => setLeftIcon(false)}
+            variant="ghost"
+            size={"icon"}
+          >
             <ChevronLeft />
           </Button>
         </div>
@@ -41,7 +45,11 @@ const Category: React.FC<CategoryProps> = ({
 
       {rightIcon && (
         <div className="absolute right-0 top-1/2 -translate-y-1/2 bg-gradient-to-r from-white from-50% to-transparent w-24 h-full flex justify-end">
-          <Button variant="ghost" size={"icon"}>
+          <Button
+            onClick={() => setRightIcon(false)}
+            variant="ghost"
+            size={"icon"}
+          >
             <ChevronRight />
           </Button>
         </div>

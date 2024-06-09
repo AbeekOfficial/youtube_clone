@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import Container from "../../ui/container";
 import Videos from "../videos/videos";
 import Skeleton from "../../ui/skeleton";
+import NotFound from "../404/404NotFound";
 
 const Search = () => {
   const { id } = useParams<{ id: string }>();
@@ -51,11 +52,7 @@ const Search = () => {
           <span className="text-2xl text-rose-600">{id}</span>
         </h1>
         {loading && <Skeleton />}
-        {error && (
-          <div className="flex items-center justify-center text-3xl text-gray-800">
-            Internetga bilan muammo yoki malumot topilmadi...
-          </div>
-        )}
+        {error && <NotFound />}
         {!loading && !error && <Videos videos={videos} loading={loading} />}
       </div>
     </Container>
