@@ -76,17 +76,17 @@ const VideoDetail: React.FC = () => {
           sx={{ flexDirection: { xs: "column", md: "row" } }}
         >
           <Box width={"75%"}>
-            <div className="flex justify-center items-center h-screen bg-gray-800 p-4">
+            <div className=" mb-[-150px] bg-white">
               <div
-                className="relative w-full"
+                className="relative w-full ml-20"
                 style={{ paddingTop: "60.25%" /* 16:9 Aspect Ratio */ }}
               >
                 <ReactPlayer
                   url={`https://www.youtube.com/watch?v=${id}`}
                   playing
                   playbackRate={1.0}
-                  width="100%"
-                  height="100%"
+                  width="85%"
+                  height="70%"
                   controls
                   onClickPreview={() => null}
                   download={true}
@@ -99,8 +99,8 @@ const VideoDetail: React.FC = () => {
                 />
               </div>
             </div>
-            <h1 className="text-2xl font-bold my-3">{title}</h1>
-            <div className="flex items-center justify-between mb-5 md:flex-wrap sm:flex-wrap">
+            <h1 className="text-2xl font-bold my-3 ml-20">{title}</h1>
+            <div className="flex items-center justify-between mb-5 md:flex-wrap sm:flex-wrap ml-20">
               <div className="flex items-center gap-3">
                 <div className="flex items-center gap-2">
                   <Link to={`/channel/${videoDetail.snippet.channelId}`}>
@@ -165,7 +165,7 @@ const VideoDetail: React.FC = () => {
                 </Button>
               </div>
             </div>
-            <div className="rounded-2xl p-4 bg-gray-100 text-black">
+            <div className="rounded-2xl p-4 ml-20 bg-gray-100 text-black">
               <div className="flex items-center mb-5">
                 <NumberDisplay value={viewCount} className="mr-1" />
                 views

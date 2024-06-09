@@ -11,7 +11,7 @@ import {
 export default function App() {
   return (
     <>
-      <div className="mt-20 fixed">
+      <div className="mt-20 fixed bg-white z-20">
         <Sidebar />
       </div>
       <div className="sticky top-0 z-20 bg-white pb-[1px] mb-3 shadow-md shadow-secondary-border-bottom">
