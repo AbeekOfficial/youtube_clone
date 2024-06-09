@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { ApiService } from "../../services/api-data";
 import VideoDetailsType from "../../types/video-details";
 import { Avatar, Box, Chip } from "@mui/material";
@@ -89,6 +89,7 @@ const VideoDetail: React.FC = () => {
                   height="100%"
                   controls
                   onClickPreview={() => null}
+                  download={true}
                   style={{
                     position: "absolute",
                     top: 0,
@@ -102,14 +103,20 @@ const VideoDetail: React.FC = () => {
             <div className="flex items-center justify-between mb-5 md:flex-wrap sm:flex-wrap">
               <div className="flex items-center gap-3">
                 <div className="flex items-center gap-2">
-                  <Avatar src={videoDetail.snippet.thumbnails.high.url} />
+                  <Link to={`/channel/${videoDetail.snippet.channelId}`}>
+                    <Avatar src={videoDetail.snippet.thumbnails.high.url} />
+                  </Link>
                   <div className="flex flex-col">
-                    <div className="flex items-center gap-x-2">
-                      <h3 className="text-lg font-semibold">{channelTitle}</h3>
-                      <CheckCircleRounded
-                        sx={{ color: "gray", fontSize: "14px" }}
-                      />
-                    </div>
+                    <Link to={`/channel/${videoDetail.snippet.channelId}`}>
+                      <div className="flex items-center gap-x-2">
+                        <h3 className="text-lg font-semibold">
+                          {channelTitle}
+                        </h3>
+                        <CheckCircleRounded
+                          sx={{ color: "gray", fontSize: "14px" }}
+                        />
+                      </div>
+                    </Link>
                     <NumberDisplay
                       value={Number(viewCount)}
                       className="text-[12px] font-medium mt-[-3px]"

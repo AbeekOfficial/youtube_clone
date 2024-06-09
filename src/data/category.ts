@@ -13,11 +13,11 @@ export const categories = [
   },
   {
     id: 4,
-    name: "Gaming",
+    name: "Uzbekistan",
   },
   {
     id: 5,
-    name: "News",
+    name: "Newsuzbekistan",
   },
   {
     id: 6,
@@ -25,15 +25,15 @@ export const categories = [
   },
   {
     id: 7,
-    name: "Fashion",
-  },
-  {
-    id: 8,
     name: "Coding",
   },
   {
+    id: 8,
+    name: "Frontend",
+  },
+  {
     id: 9,
-    name: "Travel",
+    name: "ReactJS",
   },
   {
     id: 10,
@@ -65,15 +65,15 @@ export const categories = [
   },
   {
     id: 17,
-    name: "GIF",
+    name: "Fashion",
   },
   {
     id: 18,
-    name: "Autos",
+    name: "Auto Blog",
   },
   {
     id: 19,
-    name: "Pets",
+    name: "Religion",
   },
   {
     id: 20,
@@ -81,6 +81,6 @@ export const categories = [
   },
   {
     id: 21,
-    name: "Nonprofits",
+    name: "Islam",
   },
 ];

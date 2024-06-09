@@ -20,14 +20,18 @@ export default function VideosCard({ video }: VideosDataType) {
       </Link>
       <Link to={`/video/${video.id?.videoId}`}></Link>
       <div className="flex gap-4 mt-2 relative">
-        <Avatar src={video.snippet.thumbnails.medium.url} />
+        <Link to={`/channel/${video.snippet.channelId}`}>
+          <Avatar src={video.snippet.thumbnails.medium.url} />
+        </Link>
         <h3 className="text-[16px] font-bold">{video.snippet.title}</h3>
       </div>
       <div className="ml-14">
         <div className="flex items-center gap-2">
-          <h4 className="text-sm font-medium text-gray-500">
-            {video.snippet.channelTitle}
-          </h4>
+          <Link to={`/channel/${video.snippet.channelId}`}>
+            <h4 className="text-sm font-medium text-gray-500">
+              {video.snippet.channelTitle}
+            </h4>
+          </Link>
           <CheckCircleRounded sx={{ color: "gray", fontSize: "14px" }} />
         </div>
         <p className="text-sm text-gray-500">

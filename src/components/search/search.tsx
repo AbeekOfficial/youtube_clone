@@ -1,17 +1,16 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ApiService } from "../../services/api-data";
-import { VideoProps, VideosDataType } from "../../types/videos";
+import { VideosDataType } from "../../types/videos";
+import Container from "../../ui/container";
 
-const Search: React.FC<VideosDataType> = () => {
+const Search = () => {
   const { id } = useParams<{ id: string }>();
-  const [videos, setVideos] = useState<VideoProps["videos"]>([]);
+  const [videos, setVideos] = useState<VideosDataType["videos"]>([]);
   useEffect(() => {
     const getData = async () => {
       try {
-        const data: VideoProps = await ApiService.fetching(
-          `search?part=snippet&q=${id}`
-        );
+        const data = await ApiService.fetching(`search?part=snippet&q=${id}`);
         setVideos(data.videos);
         console.log(`Malumotlar`, data);
       } catch (error) {
@@ -20,7 +19,11 @@ const Search: React.FC<VideosDataType> = () => {
     };
     getData();
   }, [id]);
-  return <div></div>;
+  return (
+    <Container>
+      <div className="lg:px-8 md:px-8 flex"> hello world</div>
+    </Container>
+  );
 };
 
 export default Search;

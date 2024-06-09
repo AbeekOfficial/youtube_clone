@@ -37,7 +37,6 @@ const Main: React.FC = () => {
   return (
     <Stack>
       <div className="flex">
-        <Sidebar />
         <Category
           selectedCategoryHandler={selectedCategoryHandler}
           selectedCategory={selectedCategory}

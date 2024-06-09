@@ -17,7 +17,7 @@ const Category: React.FC<CategoryProps> = ({
   const [rightIcon, setRightIcon] = React.useState(false);
 
   return (
-    <div className="overflow-x-hidden relative px-8 pb-4">
+    <div className="overflow-x-hidden relative px-8 ml-10 pb-4">
       <div className="flex whitespace-nowrap gap-3 transition-transform w-[max-content]">
         {categories.map((category: CategoryType) => (
           <Button
