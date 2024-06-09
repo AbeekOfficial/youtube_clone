@@ -11,7 +11,6 @@ import {
   ThumbDown,
   ThumbUp,
 } from "@mui/icons-material";
-import ReactHtmlParser from "react-html-parser";
 import { Download, Loader, MessageCircle } from "lucide-react";
 import NumberDisplay from "../../library/number-display.tsx/numberDisplay";
 import DateDisplay from "../../library/date/date-formatter";
@@ -103,7 +102,12 @@ const VideoDetail: React.FC = () => {
               <div className="flex items-center gap-3">
                 <div className="flex items-center gap-2">
                   <Link to={`/channel/${videoDetail.snippet.channelId}`}>
-                    <Avatar src={videoDetail.snippet.thumbnails.high.url} />
+                    <Avatar
+                      src={
+                        videoDetail.snippet.thumbnails.high?.url &&
+                        videoDetail.snippet.thumbnails.standard?.url
+                      }
+                    />
                   </Link>
                   <div className="flex flex-col">
                     <Link to={`/channel/${videoDetail.snippet.channelId}`}>
@@ -170,7 +174,7 @@ const VideoDetail: React.FC = () => {
                 views
                 <DateDisplay date={publishedAt} className="ml-3 " />
               </div>
-              {videoDetail.snippet.tags.map((tag, index) => (
+              {videoDetail.snippet.tags?.map((tag, index) => (
                 <Chip
                   key={index}
                   label={tag}
@@ -180,9 +184,7 @@ const VideoDetail: React.FC = () => {
                   variant="outlined"
                 />
               ))}
-              <p className="text-sm line-through-1">
-                {ReactHtmlParser(description)}
-              </p>
+              <p className="text-sm line-through-1">{description}</p>
               <p className="mt-2 flex gap-2">
                 <MessageCircle />
                 {commentCount} Comments

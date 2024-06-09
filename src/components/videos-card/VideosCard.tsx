@@ -13,7 +13,7 @@ export default function VideosCard({ video }: VideosDataType) {
       >
         <img
           className="rounded-xl block w-full h-[200px] object-cover"
-          src={video.snippet.thumbnails.medium.url}
+          src={video.snippet.thumbnails.high?.url}
           alt={video.snippet.title}
           width="100%"
         />
@@ -21,7 +21,7 @@ export default function VideosCard({ video }: VideosDataType) {
       <Link to={`/video/${video.id?.videoId}`}></Link>
       <div className="flex gap-4 mt-2 relative">
         <Link to={`/channel/${video.snippet.channelId}`}>
-          <Avatar src={video.snippet.thumbnails.medium.url} />
+          <Avatar src={video.snippet.thumbnails.standard?.url} />
         </Link>
         <h3 className="text-[16px] font-bold">{video.snippet.title}</h3>
       </div>
@@ -35,7 +35,7 @@ export default function VideosCard({ video }: VideosDataType) {
           <CheckCircleRounded sx={{ color: "gray", fontSize: "14px" }} />
         </div>
         <p className="text-sm text-gray-500">
-          {moment(video.snippet.publishedAt).fromNow()}
+          {moment(video.snippet?.publishedAt).fromNow()}
         </p>
       </div>
     </div>
