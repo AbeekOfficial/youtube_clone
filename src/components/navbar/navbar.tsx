@@ -7,14 +7,14 @@ const Navbar = () => {
   const [showInput, setShowInput] = useState<boolean>(false);
 
   return (
-    <nav className="flex items-center gap-10 justify-between lg:gap-20 pt-2 mb-6 mx-4">
+    <nav className="flex items-center gap-10 justify-between lg:gap-20 pt-2 mb-6 mx-5">
       <div
         className={`flex items-center gap-4 flex-shrink-0 ${
           showInput ? "hidden" : "flex"
         }`}
       >
         <Button variant={"ghost"} size={"icon"}>
-          <Menu />
+          <Menu className="text-2xl" />
         </Button>
         <a href="/">
           <img src={logo} alt="logo" width={100} height={100} />

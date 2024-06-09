@@ -2,21 +2,22 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ApiService } from "../../services/api-data";
 import VideoDetailsType from "../../types/video-details";
-import { Avatar, Box, Chip, Paper } from "@mui/material";
+import { Avatar, Box, Chip } from "@mui/material";
 import ReactPlayer from "react-player";
-import Container from "../../ui/container";
 import {
   CheckCircleRounded,
+  CommentOutlined,
   Reply,
   Tag,
   ThumbDown,
   ThumbUp,
 } from "@mui/icons-material";
 import ReactHtmlParser from "react-html-parser";
-import { Loader } from "lucide-react";
+import { Download, Loader, MessageCircle } from "lucide-react";
 import NumberDisplay from "../../library/number-display.tsx/numberDisplay";
 import DateDisplay from "../../library/date/date-formatter";
 import Videos from "../videos/videos";
+import { Button } from "../button/Button";
 const VideoDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
 
@@ -63,27 +64,42 @@ const VideoDetail: React.FC = () => {
   }
 
   const {
-    snippet: { title, description, channelId, channelTitle, publishedAt },
+    snippet: { title, description, channelTitle, publishedAt },
     statistics: { viewCount, likeCount, commentCount },
   } = videoDetail;
 
   return (
-    <Container>
+    <div className="px-8">
       <Box minHeight={"90vh"} mb={10} mt={5}>
         <Box
           display={"flex"}
           sx={{ flexDirection: { xs: "column", md: "row" } }}
         >
           <Box width={"75%"}>
-            <ReactPlayer
-              url={`https://www.youtube.com/watch?v=${id}`}
-              playing
-              playbackRate={1.0}
-              width={"100%"}
-              height={500}
-            />
+            <div className="flex justify-center items-center h-screen bg-gray-800 p-4">
+              <div
+                className="relative w-full"
+                style={{ paddingTop: "60.25%" /* 16:9 Aspect Ratio */ }}
+              >
+                <ReactPlayer
+                  url={`https://www.youtube.com/watch?v=${id}`}
+                  playing
+                  playbackRate={1.0}
+                  width="100%"
+                  height="100%"
+                  controls
+                  onClickPreview={() => null}
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    borderRadius: "50px",
+                  }}
+                />
+              </div>
+            </div>
             <h1 className="text-2xl font-bold my-3">{title}</h1>
-            <div className="flex items-center justify-between mb-5">
+            <div className="flex items-center justify-between mb-5 md:flex-wrap sm:flex-wrap">
               <div className="flex items-center gap-3">
                 <div className="flex items-center gap-2">
                   <Avatar src={videoDetail.snippet.thumbnails.high.url} />
@@ -101,45 +117,48 @@ const VideoDetail: React.FC = () => {
                       subscribers
                     </NumberDisplay>
                   </div>
-                  <button className="bg-gray-200 text-black font-semibold ml-5 px-5 py-2 rounded-3xl">
+                  <Button
+                    variant={"ghost"}
+                    className="bg-gray-200 font-semibold ml-5 px-5 py-2 rounded-3xl"
+                  >
                     Subscribe
-                  </button>
+                  </Button>
                 </div>
               </div>
-              <div className="flex gap-5">
-                <button className="bg-[#222222] py-2 px-3 text-white rounded-3xl flex items-center">
-                  <div className="flex items-center">
-                    <ThumbUp />
-                    <NumberDisplay value={Number(likeCount)} className="mx-2" />
-                  </div>{" "}
-                  |
-                  <div className="flex items-center">
-                    <ThumbDown className="mx-2" />
-                    <NumberDisplay value={Number(commentCount)} />
-                  </div>
-                </button>
-                <Chip
-                  icon={<Reply sx={{ color: "white" }} />}
-                  label="Share"
-                  sx={{
-                    paddingY: "20px",
-                    paddingX: "5px",
-                    borderRadius: "20px",
-                    background: "#222222",
-                    fontWeight: "500",
-                    color: "white",
-                  }}
-                />
+              <div className="flex gap-5 md:pt-3 sm:pt-3">
+                <div className="flex items-center">
+                  <Button
+                    variant={"default"}
+                    size={"default"}
+                    className=" py-2 px-3 rounded-l-3xl flex items-center gap-2 mr-[-2px]"
+                  >
+                    <div className="flex items-center">
+                      <ThumbUp />
+                      <NumberDisplay
+                        value={Number(likeCount)}
+                        className="mx-2"
+                      />
+                    </div>{" "}
+                  </Button>
+
+                  <Button className=" py-2 px-3 rounded-r-3xl  flex items-center gap-2 ml-[-2px]">
+                    <div className="flex items-center">
+                      <ThumbDown className="mx-2" />
+                      <NumberDisplay value={Number(commentCount)} />
+                    </div>
+                  </Button>
+                </div>
+                <Button className="py-2 px-3 rounded-3xl flex items-center gap-2">
+                  <Reply />
+                  Share
+                </Button>
+                <Button className="py-2 px-3 rounded-3xl flex items-center gap-2">
+                  <Download />
+                  Download
+                </Button>
               </div>
             </div>
-            <Paper
-              sx={{
-                padding: "20px",
-                background: "#272727",
-                color: "white",
-                borderRadius: 2,
-              }}
-            >
+            <div className="rounded-2xl p-4 bg-gray-100 text-black">
               <div className="flex items-center mb-5">
                 <NumberDisplay value={viewCount} className="mr-1" />
                 views
@@ -151,26 +170,25 @@ const VideoDetail: React.FC = () => {
                   label={tag}
                   icon={<Tag />}
                   onDelete={() => {}}
-                  sx={{ ml: 1, mb: 1, cursor: "pointer", color: "white" }}
+                  sx={{ ml: 1, mb: 1, cursor: "pointer", color: "black" }}
                   variant="outlined"
                 />
               ))}
-              <p>{ReactHtmlParser(description)}</p>
-            </Paper>
+              <p className="text-sm line-through-1">
+                {ReactHtmlParser(description)}
+              </p>
+              <p className="mt-2 flex gap-2">
+                <MessageCircle />
+                {commentCount} Comments
+              </p>
+            </div>
           </Box>
-          <Box
-            width={{ xs: "100%", md: "25%" }}
-            flexDirection={"column"}
-            maxHeight={"100vh"}
-            overflow={"auto"}
-            justifyContent={"center"}
-            justifyItems={"center"}
-          >
+          <div className="overflow-x-hidden w-[100%] md:w-[25%] flex-col max-h-[155vh] flex justify-center items-center overflow-y-auto">
             <Videos videos={relatedVideos} loading={loading} error={error} />
-          </Box>
+          </div>
         </Box>
       </Box>
-    </Container>
+    </div>
   );
 };
 

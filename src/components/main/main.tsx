@@ -36,7 +36,7 @@ const Main: React.FC = () => {
 
   return (
     <Stack>
-      <div className="flex items-center">
+      <div className="flex">
         <Sidebar />
         <Category
           selectedCategoryHandler={selectedCategoryHandler}
