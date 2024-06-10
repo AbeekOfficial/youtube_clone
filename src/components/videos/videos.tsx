@@ -11,7 +11,9 @@ const Videos: React.FC<VideosDataType> = ({ videos, loading }) => {
     <div className="grid gap-5 grid-cols-[repeat(auto-fill,minmax(300px,1fr))] px-20 ">
       {loading
         ? new Array(8).fill(null).map((_, index) => <Skeleton key={index} />)
-        : videos?.map((video: any) => <VideosCard video={video} />)}
+        : videos?.map((video: any) => (
+            <VideosCard videos={video} loading={loading} />
+          ))}
     </div>
   );
 };

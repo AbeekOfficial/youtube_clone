@@ -29,7 +29,7 @@ export interface Video {
 }
 
 export interface VideosDataType {
-  videos: Video[];
+  videos: Video[] | null | any;
   loading: boolean;
   error?: string | null;
 }
