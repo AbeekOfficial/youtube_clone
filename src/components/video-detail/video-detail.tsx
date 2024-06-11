@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ApiService } from "../../services/api-data";
-import VideoDetailsType from "../../types/video-details";
 import { Avatar, Box, Chip } from "@mui/material";
 import ReactPlayer from "react-player";
 import {
@@ -11,16 +10,100 @@ import {
   ThumbDown,
   ThumbUp,
 } from "@mui/icons-material";
-import { Download, Loader, MessageCircle } from "lucide-react";
+import { Download, MessageCircle } from "lucide-react";
 import NumberDisplay from "../../library/number-display.tsx/numberDisplay";
 import DateDisplay from "../../library/date/date-formatter";
 import Videos from "../videos/videos";
 import { Button } from "../button/Button";
+import Loader from "../../ui/Loader/Loader";
+// Define VideoDetailsType
+export type VideoDetailsType = {
+  contentDetails: {
+    duration: string;
+    definition: string;
+    caption: string;
+  };
+  id: string;
+  snippet: {
+    categoryId: string;
+    channelId: string;
+    channelTitle: string;
+    description: string;
+    liveBroadcastContent: string;
+    publishedAt: string;
+    defaultAudioLanguage: string;
+    defaultLanguage: string;
+    tags: string[];
+    localized: {
+      title: string;
+      description: string;
+    };
+    thumbnails: {
+      default: {
+        url: string;
+      };
+      high: {
+        url: string;
+      };
+      maxres: {
+        url: string;
+      };
+      medium: {
+        url: string;
+      };
+      standard: {
+        url: string;
+      };
+    };
+    title: string;
+  };
+  statistics: {
+    commentCount: string;
+    dislikeCount: string;
+    favoriteCount: string;
+    likeCount: string;
+    viewCount: string;
+  };
+};
+
+// Define VideosDataType
+export interface VideosDataType {
+  id: {
+    kind: string;
+    videoId: string;
+  };
+  snippet: {
+    publishedAt: string;
+    channelId: string;
+    title: string;
+    description: string;
+    thumbnails: {
+      default: {
+        url: string;
+        width: number;
+        height: number;
+      };
+      medium: {
+        url: string;
+        width: number;
+        height: number;
+      };
+      high: {
+        url: string;
+        width: number;
+        height: number;
+      };
+    };
+    channelTitle: string;
+    liveBroadcastContent: string;
+    publishTime: string;
+  };
+}
+
 const VideoDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-
   const [videoDetail, setVideoDetail] = useState<VideoDetailsType | null>(null);
-  const [relatedVideos, setRelatedVideos] = useState<VideoDetailsType[]>([]);
+  const [relatedVideos, setRelatedVideos] = useState<VideosDataType[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -33,15 +116,36 @@ const VideoDetail: React.FC = () => {
           `videos?part=snippet,statistics&id=${id}`
         );
         setVideoDetail(data.items[0]);
+
         const relatedData = await ApiService.fetching(
           `search?part=snippet&relatedToVideoId=${id}&type=video&maxResults=10`
         );
-        setRelatedVideos(relatedData.items);
-        setLoading(false);
+
+        // Transform related videos data to match VideosDataType
+        const transformedRelatedVideos: VideosDataType[] =
+          relatedData.items.map((item: any) => ({
+            id: {
+              kind: item.id.kind,
+              videoId: item.id.videoId,
+            },
+            snippet: {
+              publishedAt: item.snippet.publishedAt,
+              channelId: item.snippet.channelId,
+              title: item.snippet.title,
+              description: item.snippet.description,
+              thumbnails: item.snippet.thumbnails,
+              channelTitle: item.snippet.channelTitle,
+              liveBroadcastContent: item.snippet.liveBroadcastContent,
+              publishTime: item.snippet.publishTime,
+            },
+          }));
+
+        setRelatedVideos(transformedRelatedVideos);
       } catch (error) {
-        setLoading(false);
         setError("Video details could not be retrieved");
         console.error("Video details could not be retrieved", error);
+      } finally {
+        setLoading(false);
       }
     };
     if (id) {
@@ -49,14 +153,26 @@ const VideoDetail: React.FC = () => {
     }
   }, [id]);
 
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center mt-48">
+        <Loader />
+      </div>
+    );
+  }
+
   if (error) {
-    return <div>{error}</div>;
+    return (
+      <div className="flex items-center justify-center mt-40">
+        <p className="text-red-500">{error}</p>
+      </div>
+    );
   }
 
   if (!videoDetail) {
     return (
       <div className="flex items-center justify-center mt-40">
-        <Loader />
+        <p>No video details available</p>
       </div>
     );
   }

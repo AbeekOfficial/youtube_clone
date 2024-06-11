@@ -4,7 +4,7 @@ import VideosCard from "../videos-card/VideosCard";
 import Skeleton from "../../ui/skeleton";
 
 type VideosProps = {
-  videos: VideosDataType[];
+  videos: VideosDataType[] | undefined | null;
   loading?: boolean;
   error?: string | null;
 };
