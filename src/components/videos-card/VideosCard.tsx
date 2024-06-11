@@ -4,9 +4,13 @@ import { Avatar } from "@mui/material";
 import { CheckCircleRounded } from "@mui/icons-material";
 import moment from "moment";
 
-const VideosCard: React.FC<VideosDataType> = ({ video }: any) => {
+type VideosCardProps = {
+  video: VideosDataType;
+};
+
+const VideosCard: React.FC<VideosCardProps> = ({ video }) => {
   return (
-    <div key={video.id.videoId}>
+    <div>
       <Link
         to={`/video/${video.id?.videoId}`}
         className="relative aspect-video"
@@ -21,7 +25,7 @@ const VideosCard: React.FC<VideosDataType> = ({ video }: any) => {
       <Link to={`/video/${video.id?.videoId}`}></Link>
       <div className="flex gap-4 mt-2 relative">
         <Link to={`/channel/${video.snippet.channelId}`}>
-          <Avatar src={video.snippet.thumbnails.standard?.url} />
+          <Avatar src={video.snippet.thumbnails.default?.url} />
         </Link>
         <h3 className="text-[16px] font-bold">{video.snippet.title}</h3>
       </div>
@@ -41,4 +45,5 @@ const VideosCard: React.FC<VideosDataType> = ({ video }: any) => {
     </div>
   );
 };
+
 export default VideosCard;

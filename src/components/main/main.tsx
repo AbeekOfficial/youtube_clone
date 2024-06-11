@@ -3,11 +3,11 @@ import { Stack } from "@mui/material";
 import Category from "../category/category";
 import Videos from "../videos/videos";
 import { ApiService } from "../../services/api-data";
-import { Video } from "../../types/videos";
+import { VideosDataType } from "../../types/videos";
 
 const Main: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
-  const [videos, setVideos] = useState<Video[]>([]);
+  const [videos, setVideos] = useState<VideosDataType[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -23,9 +23,9 @@ const Main: React.FC = () => {
         const data = await ApiService.fetching(
           `search?part=snippet&q=${selectedCategory}`
         );
-        setVideos(data.items);
-      } catch (err: any) {
-        setError("Maalumot topilmadi");
+        setVideos(data.items as VideosDataType[]); // Ensure the data conforms to VideosDataType[]
+      } catch (err) {
+        setError("Malumot topilmadi");
       } finally {
         setLoading(false);
       }
